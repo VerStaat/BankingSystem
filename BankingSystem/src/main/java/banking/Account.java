@@ -50,4 +50,6 @@ public abstract class Account {
 		}
         return false;
 	}
+
+	public abstract boolean validateUser(AccountHolder accountHolder, int pin);
 }

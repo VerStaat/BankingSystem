@@ -34,4 +34,9 @@ public class CommercialAccount extends Account {
 				.filter(Objects::nonNull)
 				.anyMatch(p -> p.equals(person));
 	}
+
+	@Override
+	public boolean validateUser(AccountHolder accountHolder, int pin) {
+		return accountHolder.isPerson() && isAuthorizedUser((Person) accountHolder) && validatePin(pin);
+	}
 }

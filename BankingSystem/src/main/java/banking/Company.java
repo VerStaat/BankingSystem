@@ -11,4 +11,9 @@ public class Company extends AccountHolder {
 	public String getCompanyName() {
         return companyName;
 	}
+
+	@Override
+	public boolean isPerson() {
+		return false;
+	}
 }

@@ -50,7 +50,7 @@ public class Bank implements BankInterface {
 
 	public boolean authenticateUser(Long accountNumber, int pin) {
 		Account account = getAccount(accountNumber);
-        return Objects.nonNull(account) && account.validatePin(pin);
+        return Objects.nonNull(account) && account.validateUser(account.getAccountHolder(), pin);
 	}
 
 	public double getBalance(Long accountNumber) {

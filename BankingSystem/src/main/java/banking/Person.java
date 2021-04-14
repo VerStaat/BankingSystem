@@ -19,4 +19,8 @@ public class Person extends AccountHolder {
 	}
 
 
+	@Override
+	public boolean isPerson() {
+		return true;
+	}
 }

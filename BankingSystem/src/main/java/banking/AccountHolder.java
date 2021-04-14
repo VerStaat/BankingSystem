@@ -31,4 +31,6 @@ public abstract class AccountHolder {
 	public int hashCode() {
 		return Objects.hash(idNumber);
 	}
+
+	public abstract boolean isPerson();
 }
