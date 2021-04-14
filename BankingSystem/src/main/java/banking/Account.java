@@ -28,8 +28,7 @@ public abstract class Account {
 	}
 
 	public boolean validatePin(int attemptedPin) {
-		// complete the function
-        return true;
+        return this.pin == attemptedPin;
 	}
 
 	public double getBalance() {
