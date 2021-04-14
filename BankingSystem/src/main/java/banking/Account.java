@@ -45,6 +45,10 @@ public abstract class Account {
 	}
 
 	public boolean debitAccount(double amount) {
-        return true;
+		if(balance >= amount) {
+			balance -= amount;
+			return true;
+		}
+        return false;
 	}
 }

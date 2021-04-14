@@ -1,6 +1,8 @@
 package banking;
 
 import java.util.LinkedHashMap;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Private Variables:<br>
@@ -10,22 +12,40 @@ public class Bank implements BankInterface {
 	private LinkedHashMap<Long, Account> accounts;
 
 	public Bank() {
-		// complete the function
+		this.accounts = new LinkedHashMap();
 	}
 
 	private Account getAccount(Long accountNumber) {
-		// complete the function
-        return null;
+        return accounts.get(accountNumber);
+	}
+
+	private Long getNextAccountNumber() {
+		if (accounts.isEmpty()) {
+			return 0L;
+		}
+		Long[] existingAccountIds = accounts.keySet().toArray(new Long[0]);
+
+		return ++existingAccountIds[existingAccountIds.length - 1];
+	}
+
+	private void addAccount(Long nextAccountNumber, Account account) {
+		accounts.put(nextAccountNumber, account);
 	}
 
 	public Long openCommercialAccount(Company company, int pin, double startingDeposit) {
-		// complete the function
-        return -1L;
+		Long nextAccountNumber = getNextAccountNumber();
+		// TODO: Extract somehow
+		Account commercialAccount = new CommercialAccount(company, nextAccountNumber, pin, startingDeposit);
+		addAccount(nextAccountNumber, commercialAccount);
+        return nextAccountNumber;
 	}
 
 	public Long openConsumerAccount(Person person, int pin, double startingDeposit) {
-		// complete the function
-        return -1L;
+		Long nextAccountNumber = getNextAccountNumber();
+		// TODO: Extract somehow
+		Account consumerAccount = new ConsumerAccount(person, nextAccountNumber, pin, startingDeposit);
+		addAccount(nextAccountNumber, consumerAccount);
+        return nextAccountNumber;
 	}
 
 	public boolean authenticateUser(Long accountNumber, int pin) {
@@ -34,16 +54,20 @@ public class Bank implements BankInterface {
 	}
 
 	public double getBalance(Long accountNumber) {
-		// complete the function
-        return -1;
+		Account account = getAccount(accountNumber);
+        return Objects.nonNull(account) ? account.getBalance() : -1;
 	}
 
 	public void credit(Long accountNumber, double amount) {
-		// complete the function
+		Account account = getAccount(accountNumber);
+		if(Objects.nonNull(account)) {
+			account.creditAccount(amount);
+		}
 	}
 
 	public boolean debit(Long accountNumber, double amount) {
-		// complete the function
-        return true;
+		Account account = getAccount(accountNumber);
+
+        return Objects.isNull(account) ? false : account.debitAccount(amount);
 	}
 }
